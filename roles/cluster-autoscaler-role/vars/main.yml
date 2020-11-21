@@ -23,7 +23,9 @@
 #This needs to be run from cli  
   aws_region: us-east-1
   aws_profile: ""
-  cluster_name: ""
+  cluster_name: "cluster.prod.achirashah.com"
   state_store: ""
   dns_zone: ""
   ssh_public_key: ""
+
+  policy_json: file:///Users/achirashah/Documents/cloud/kubernetes/kubernetes/roles/cluster-autoscaler-role/templates/policy.json
