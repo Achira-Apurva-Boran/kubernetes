@@ -70,6 +70,17 @@
 - name: Create secret
   shell: AWS_PROFILE={{ aws_profile }} kops create secret --name={{ cluster_name }} sshpublickey admin -i {{ ssh_public_key }} --state {{ state_store }}
 
+- name: Generate template file
+  shell:
+    kops toolbox template \
+    --values ./tmp/values.yml \
+    --template ./tmp/updateIG.yml \
+    --output ./tmp/igConfig.yml
+
+- name: Change Instance Group Configuration
+  shell:
+    kops replace -f ./tmp/igConfig.yml --state {{ state_store }}
+
 - name: Create the physical cluster
   shell: "AWS_PROFILE={{ aws_profile }} kops update cluster --name {{ cluster_name }} --yes --state={{ state_store }}"
 

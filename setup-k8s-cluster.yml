@@ -6,4 +6,10 @@
 
   - import_role:
       name: roles/setup-k8s-cluster-role
+  - import_role:
+      name: roles/cluster-autoscaler-role
+  - import_role:
+      name: roles/metric-server-role     
+  - import_role:
+      name: roles/install-nginx-ingress-controller-role       
   
