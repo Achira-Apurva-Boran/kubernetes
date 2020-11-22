@@ -6,8 +6,8 @@
   master_node_size: t3.medium
   compute_node_size: t3.medium
   kubernetes_version: "1.18.0"  
-  master_volume_size: 20
-  node_volume_size: 20
+  master_volume_size: 80
+  node_volume_size: 80
   kubernetes_networking: amazon-vpc-routed-eni
   
   cloud: aws

@@ -1,3 +1,3 @@
 ---
 - name: create metric server
-  command: kubectl apply -f roles/metric-server/templates/components-modified.yaml
+  command: kubectl apply -f /Users/achirashah/Documents/cloud/kubernetes/kubernetes/roles/metric-server-role/templates/components-modified.yaml
