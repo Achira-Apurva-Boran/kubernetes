@@ -35,7 +35,7 @@
     policy_document: roles/cluster-autoscaler-role/templates/policy.json
 
 - name: Install cluster-autoscaler
-  shell: "helm install cluster-autoscaler --namespace kube-system roles/cluster-autoscaler-role/tasks/cluster-autoscaler-chart \
+  shell: "helm upgrade --install cluster-autoscaler --namespace kube-system roles/cluster-autoscaler-role/tasks/cluster-autoscaler-chart \
           --set 'autoscalingGroups[0].name=nodes.{{ cluster_name }}' \
           --set 'autoscalingGroups[0].maxSize=6' \
           --set 'autoscalingGroups[0].minSize=3'"
