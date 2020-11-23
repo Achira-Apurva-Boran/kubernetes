@@ -1,3 +1,4 @@
 ---
 cluster_name: cluster.prod.achirashah.com
+aws_region: us-east-1
 policy_json: file:///Users/achirashah/Documents/cloud/kubernetes/kubernetes/roles/cluster-autoscaler-role/templates/policy.json

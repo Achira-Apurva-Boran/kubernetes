@@ -15,11 +15,27 @@
 #     policy_document: roles/cluster-autoscaler-role/templates/policy.json
 
 # tasks file for cluster-autoscaler
-- name: Assign a policy to a role
-  command: aws iam put-role-policy --role-name nodes.{{ cluster_name }} --policy-name nodes.{{ cluster_name }}-policy --policy-document {{ policy_json }}
+# - name: Assign a policy to a role
+#   command: aws iam put-role-policy --role-name nodes.{{ cluster_name }} --policy-name nodes.{{ cluster_name }}-policy --policy-document {{ policy_json }}
 
 # - name: Install cluster-autoscaler
 #   shell: "helm install {{ clusterAutoscaler_releaseName }} roles/cluster-autoscaler/tasks/cluster-autoscaler --set 'autoscalingGroups[0].name=nodes.{{ cluster_name }},autoscalingGroups[0].maxSize=3,autoscalingGroups[0].minSize=1,rbac.create=true'"
 
+# - name: Install cluster-autoscaler
+#   command: kubectl apply -f /Users/achirashah/Documents/cloud/kubernetes/kubernetes/roles/cluster-autoscaler-role/templates/cluster-autoscaler-one-asg.yaml
+
+- name: Assign a policy to a role
+  iam_policy:
+    iam_type: role
+    iam_name: "nodes.{{ cluster_name }}"
+    region: "{{ aws_region }}"
+    profile: "{{ aws_profile }}"
+    policy_name: aws-cluster-autoscaler
+    state: present
+    policy_document: roles/cluster-autoscaler-role/templates/policy.json
+
 - name: Install cluster-autoscaler
-  command: kubectl apply -f /Users/achirashah/Documents/cloud/kubernetes/kubernetes/roles/cluster-autoscaler-role/templates/cluster-autoscaler-one-asg.yaml
+  shell: "helm install cluster-autoscaler --namespace kube-system roles/cluster-autoscaler-role/tasks/cluster-autoscaler-chart \
+          --set 'autoscalingGroups[0].name=nodes.{{ cluster_name }}' \
+          --set 'autoscalingGroups[0].maxSize=6' \
+          --set 'autoscalingGroups[0].minSize=3'"
