@@ -12,6 +12,11 @@ spec:
       name: letsencrypt-staging
     server: https://acme-v02.api.letsencrypt.org/directory
     solvers:
-    - http01:
-       ingress:
-         class: nginx    
+    - selector:
+        dnsZones:
+          - "app.prod.achirashah.com"
+      dns01:
+        route53:
+          region: us-east-1
+          hostedZoneID: Z1045005KIASY6JKNPYO # optional, see policy above
+          role: arn:aws:iam::370963577973:role/dns-manager
