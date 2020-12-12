@@ -71,3 +71,5 @@ $ kubectl apply -f letsencrypt-staging.yaml
 run jenkins to deploy microservices - webapp, poller, notifier
 
 7) register externalip to route53
+
+8) kubectl apply -f ./app-prereq/test.yml -o yaml -n monitoring

@@ -1,13 +1,22 @@
 apiVersion: cert-manager.io/v1
 kind: ClusterIssuer
 metadata:
- labels:
-   name: letsencrypt-staging
- name: letsencrypt-staging
+  labels:
+    name: letsencrypt-staging
+  name: letsencrypt-staging
+  namespace: cert-manager
 spec:
- acme:
-   email: shah.ac@northeastern.com
-   http01: {}
-   privateKeySecretRef:
-     name: letsencrypt-staging
-   server: https://acme-v02.api.letsencrypt.org/directory
+  acme:
+    email: shah.ac@northeastern.com
+    privateKeySecretRef:
+      name: letsencrypt-staging
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - selector:
+        dnsZones:
+          - "app.prod.achirashah.com"
+      dns01:
+        route53:
+          region: us-east-1
+          hostedZoneID: Z1045005KIASY6JKNPYO # optional, see policy above
+          role: arn:aws:iam::370963577973:role/dns-manager
